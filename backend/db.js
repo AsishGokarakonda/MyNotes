@@ -1,10 +1,12 @@
 const mongoose = require("mongoose")
-const uri = "mongodb://localhost:27017/"
-
+require('dotenv').config();
 const connectToMongo = () =>{
-    mongoose.connect(uri,()=>{
-        console.log("connected to mongodb")
-    })
+    mongoose 
+    .connect(process.env.ATLAS_URI, {
+           useNewUrlParser: true,
+           useUnifiedTopology: true})   
+    .then(() => console.log("Database connected!"))
+    .catch(err => console.log(err));
 }
 
 module.exports = connectToMongo
