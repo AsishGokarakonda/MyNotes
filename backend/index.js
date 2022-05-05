@@ -5,7 +5,7 @@ const exportnotes = require('./routes/notes.js')
 connectToMongo();
 const express = require('express')
 const app = express()
-const port = process.env.Port || 3000
+const port = process.env.Port || 5000
 
 app.use(express.json({extended:false})) //should be placed before the routes to parse the body
 app.get('/', (req, res) => {
