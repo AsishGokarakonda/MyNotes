@@ -5,7 +5,7 @@ secretKey = "nodemon@JWT"
 const fetchuser = (req,res,next) =>{
     let token = req.header('auth-token')
     if(!token){
-        res.status(400).send("Token is not sent")
+        res.status(401).send("Token is not sent")
     }
     try{
         let decodeddata=jwt.verify(token, secretKey);

@@ -37,7 +37,6 @@ router.post("/createuser",
                 }
             }
             var token = jwt.sign(data,secretKey);
-            console.log(token)
             //if user doesn't exist, new user will be created.
             let user = await usersch.create({
                 name: req.body.name,
@@ -89,7 +88,7 @@ router.post("/loginuser",
 
 
 
-
+//gets user with the auth token provided in header
 router.post("/getuser",fetchuser, async (req, res) => {
     try{
         let userid = req.user.id
