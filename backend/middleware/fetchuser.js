@@ -10,7 +10,7 @@ const fetchuser = (req,res,next) =>{
     try{
         let decodeddata=jwt.verify(token, secretKey);
         req.user=decodeddata.user
-        console.log(decodeddata)
+        // console.log(decodeddata)
         next()
     }
     catch(error){
