@@ -1,142 +1,49 @@
 import React from "react";
 import notecontext from "./noteContext";
 import { useState } from "react";
+import Axios from 'axios'
 
 const NoteState = (props) =>{
-    const notesIntial = [
-        {
-          "_id": "6274cab8b9266d759158fc52",
-          "userId": "62740f78ee77fe7403ef4561",
-          "title": "school4",
-          "description": "wear shoes4",
-          "tag": "punishment",
-          "date": "2022-05-06T07:14:00.329Z",
-          "__v": 0
-        },
-        {
-          "_id": "6274cab8b9266d759158fc54",
-          "userId": "62740f78ee77fe7403ef4561",
-          "title": "school4",
-          "description": "wear shoes4",
-          "tag": "punishment",
-          "date": "2022-05-06T07:14:00.626Z",
-          "__v": 0
-        },
-        {
-          "_id": "6274cab8b9266d759158fc56",
-          "userId": "62740f78ee77fe7403ef4561",
-          "title": "school4",
-          "description": "wear shoes4",
-          "tag": "punishment",
-          "date": "2022-05-06T07:14:00.779Z",
-          "__v": 0
-        },
-        {
-          "_id": "6274cab8b9266d759158fc58",
-          "userId": "62740f78ee77fe7403ef4561",
-          "title": "school4",
-          "description": "wear shoes4",
-          "tag": "punishment",
-          "date": "2022-05-06T07:14:00.913Z",
-          "__v": 0
-        },
-        // {
-        //   "_id": "6274cab9b9266d759158fc5a",
-        //   "userId": "62740f78ee77fe7403ef4561",
-        //   "title": "school4",
-        //   "description": "wear shoes4",
-        //   "tag": "punishment",
-        //   "date": "2022-05-06T07:14:01.198Z",
-        //   "__v": 0
-        // },
-        // {
-        //   "_id": "6274cab9b9266d759158fc5c",
-        //   "userId": "62740f78ee77fe7403ef4561",
-        //   "title": "school4",
-        //   "description": "wear shoes4",
-        //   "tag": "punishment",
-        //   "date": "2022-05-06T07:14:01.347Z",
-        //   "__v": 0
-        // },
-        // {
-        //   "_id": "6274cab9b9266d759158fc5e",
-        //   "userId": "62740f78ee77fe7403ef4561",
-        //   "title": "school4",
-        //   "description": "wear shoes4",
-        //   "tag": "punishment",
-        //   "date": "2022-05-06T07:14:01.613Z",
-        //   "__v": 0
-        // },
-        // {
-        //   "_id": "6274cab9b9266d759158fc60",
-        //   "userId": "62740f78ee77fe7403ef4561",
-        //   "title": "school4",
-        //   "description": "wear shoes4",
-        //   "tag": "punishment",
-        //   "date": "2022-05-06T07:14:01.920Z",
-        //   "__v": 0
-        // },
-        // {
-        //   "_id": "6274cabab9266d759158fc62",
-        //   "userId": "62740f78ee77fe7403ef4561",
-        //   "title": "school4",
-        //   "description": "wear shoes4",
-        //   "tag": "punishment",
-        //   "date": "2022-05-06T07:14:02.139Z",
-        //   "__v": 0
-        // },
-        // {
-        //   "_id": "6274cabab9266d759158fc64",
-        //   "userId": "62740f78ee77fe7403ef4561",
-        //   "title": "school4",
-        //   "description": "wear shoes4",
-        //   "tag": "punishment",
-        //   "date": "2022-05-06T07:14:02.418Z",
-        //   "__v": 0
-        // },
-        // {
-        //   "_id": "6274cabab9266d759158fc66",
-        //   "userId": "62740f78ee77fe7403ef4561",
-        //   "title": "school4",
-        //   "description": "wear shoes4",
-        //   "tag": "punishment",
-        //   "date": "2022-05-06T07:14:02.562Z",
-        //   "__v": 0
-        // },
-        // {
-        //   "_id": "6274cabab9266d759158fc68",
-        //   "userId": "62740f78ee77fe7403ef4561",
-        //   "title": "school4",
-        //   "description": "wear shoes4",
-        //   "tag": "punishment",
-        //   "date": "2022-05-06T07:14:02.699Z",
-        //   "__v": 0
-        // }
-      ]
-    const [notes, setNotes] = useState(notesIntial)
+  const host = "http://localhost:5000"
+  const notesIntial = []
+  const [notes, setNotes] = useState(notesIntial)
 
-    const addNote = (title,description,tag) =>{
-      console.log('first')
-      const note={
-        "_id": "6274cabab9266d759158fc61",
-        "userId": "62740f78ee77fe7403ef4561",
-        "title": "college Added",
-        "description": "college shirt",
-        "tag": "punishment",
-        "date": "2022-05-06T07:14:02.699Z",
-        "__v": 0
+  const getNotes = async () =>{
+    const response = await fetch(`${host}/api/notes/getnotes`, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI3NDBmNzhlZTc3ZmU3NDAzZWY0NTYxIn0sImlhdCI6MTY1MTgxOTI2N30.5AaVuZS2y247W8zOHU16kB5mmPZnY92RqO-CHPfgPaQ'
+      },
+    });
+    const newnotes = await response.json()
+    setNotes(newnotes)
+    // console.log(newnotes)
+  }
+
+    const addNote = async (newnote) =>{
+    Axios.post(`${host}/api/notes/addnotes`,newnote,{
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept':'application/json',
+        'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI3NDBmNzhlZTc3ZmU3NDAzZWY0NTYxIn0sImlhdCI6MTY1MTgxOTI2N30.5AaVuZS2y247W8zOHU16kB5mmPZnY92RqO-CHPfgPaQ'
       }
-      setNotes(notes.concat(note))
-      console.log(notes)
+    })
     }
-    const deleteNote = () =>{
-
+    const deleteNote = (note) =>{
+      Axios.delete(`${host}/api/notes/deletenote/${note._id}`,{
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept':'application/json',
+          'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI3NDBmNzhlZTc3ZmU3NDAzZWY0NTYxIn0sImlhdCI6MTY1MTgxOTI2N30.5AaVuZS2y247W8zOHU16kB5mmPZnY92RqO-CHPfgPaQ'
+        }
+      })
     }
     const updateNote = () =>{
 
     }
     return(
-    <notecontext.Provider value={{notes,addNote,deleteNote,updateNote}}>
+    <notecontext.Provider value={{notes,addNote,deleteNote,updateNote,getNotes}}>
         {props.children}
     </notecontext.Provider>
     )
