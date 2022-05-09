@@ -8,9 +8,6 @@ function AddNote() {
     const handleClick = (e) =>{
         e.preventDefault();
         addNote(note)
-        // document.getElementById('Title1').value=""
-        // document.getElementById('Description1').value=""
-        // document.getElementById('Tag1').value=""
         setNote({title:"",description:"",tag:""})
     }
     const handleOnChange = (e) =>{
