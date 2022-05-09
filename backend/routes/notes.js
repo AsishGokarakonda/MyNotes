@@ -46,7 +46,7 @@ router.post("/addnotes", fetchuser, body('title').isLength({ min: 3 }), async (r
 
 
 //update a particular person's notes with auth token provided in header
-router.get("/updatenote/:id", fetchuser, async (req, res) => {
+router.put("/updatenote/:id", fetchuser, async (req, res) => {
     try {
         const { title, description, tag } = req.body
         const notes = await notesch.findById(req.params.id)

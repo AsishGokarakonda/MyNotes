@@ -7,12 +7,13 @@ function AddNote() {
     const [note, setNote] = useState({title:"",description:"",tag:""})
     const handleClick = (e) =>{
         e.preventDefault();
-        // addNote("A","B","C")
         addNote(note)
+        document.getElementById('Title1').value=""
+        document.getElementById('Description1').value=""
+        document.getElementById('Tag1').value=""
     }
     const handleOnChange = (e) =>{
         setNote({...note,[e.target.name]:e.target.value})
-        console.log(note)
     }
   return (
     <div className="container my-3">
