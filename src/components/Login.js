@@ -4,7 +4,7 @@ import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
 
-const Login = () => {
+const Login = (props) => {
     const host = "http://localhost:5000"
     const [creds, setCreds] = useState({ "email": "", "password": "" })
     const navigate = useNavigate();
@@ -20,11 +20,15 @@ const Login = () => {
                 'Accept': 'application/json'
             }
         }).then(function (response) {
-            console.log(response);
+            props.promptAlert("Logged in successfully", "success")
+            console.log(response.data.token);
+            localStorage.setItem("token", response.data.token)
             navigate("/");
         })
             .catch(function (error) {
-                alert("invalid credentials")
+                console.log(error)
+                props.promptAlert(error.response.data.message, "danger")
+
             });
     }
     return (

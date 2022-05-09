@@ -4,7 +4,7 @@ import notecontext from '../context/notes/noteContext'
 import AddNote from './AddNote'
 
 
-function Notes() {
+function Notes(props) {
   const context = useContext(notecontext)
   const { notes, getNotes,updateNote} = context
   const [note, setNote] = useState({title:"",description:"",tag:""})
@@ -21,13 +21,14 @@ function Notes() {
     e.preventDefault();
     updateNote(id,note)
     document.getElementById('modalclose').click()
+    props.promptAlert("Note updated","success")
   }
   const handleOnChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
   }
   return (
     <>
-      <AddNote />
+      <AddNote promptAlert={props.promptAlert} />
       <button type="button" className="btn btn-primary d-none" id='launchdemo' data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal
       </button>
@@ -68,7 +69,7 @@ function Notes() {
           {notes.length === 0 && "No notes to display"}
         </div>
         {notes.map((note) => {
-          return <NoteItem note={note} modifyNote={modifyNote} key={note._id} />
+          return <NoteItem note={note} modifyNote={modifyNote} key={note._id}  />
         })}
       </div>
     </>

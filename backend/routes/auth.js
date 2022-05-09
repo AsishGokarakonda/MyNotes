@@ -42,7 +42,7 @@ router.post("/createuser",
                 name: req.body.name,
                 email: req.body.email,
                 password: hash,
-            }).then(user => res.json(user))
+            }).then(user => res.json({"token":token}))
         }
         catch (error) {
             console.error(error.message);
