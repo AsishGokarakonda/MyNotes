@@ -57,6 +57,7 @@ router.post("/createuser",
 router.post("/loginuser",
     //validations for email
     body('email').isEmail(), async (req, res) => {
+        let success = false
         try{
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -64,12 +65,12 @@ router.post("/loginuser",
             }
             let user =await usersch.findOne({email:req.body.email})
             if (!user){
-                return res.status(400).send("Sorry,No user with this email and password exists")
+                return res.status(400).send({success,"message":"Sorry,No user with this email and password exists"})
             }
 
             let login = bcrypt.compare(req.body.password, user.password);
             if (!login){
-                return res.status(400).send("Please login with correct credentials")
+                return res.status(400).send({success,"message":"Please login with correct credentials"})
             }
             let data ={
                 user:{
@@ -77,7 +78,8 @@ router.post("/loginuser",
                 }
             }
             var token = jwt.sign(data, secretKey);
-            return res.status(200).send(token)
+            success = true
+            return res.status(200).send({success,token})
             
         }
         catch(error){
