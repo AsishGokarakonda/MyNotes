@@ -2,15 +2,22 @@ import React, { useContext, useEffect,useState } from 'react'
 import NoteItem from './NoteItem'
 import notecontext from '../context/notes/noteContext'
 import AddNote from './AddNote'
-
+import { useNavigate } from 'react-router-dom'
 
 function Notes(props) {
   const context = useContext(notecontext)
   const { notes, getNotes,updateNote} = context
   const [note, setNote] = useState({title:"",description:"",tag:""})
   const [id, setId] = useState("")
+  const navigate = useNavigate()
   useEffect(() => {
-    getNotes()
+    if(localStorage.getItem("token")){
+      // console.log(localStorage.getItem("token"))
+      getNotes(localStorage.getItem("token"))
+    }
+    else{
+      navigate("/login")
+    }
   })
   const modifyNote = (currentNote) => {
     document.getElementById('launchdemo').click()
@@ -19,7 +26,7 @@ function Notes(props) {
   }
   const handleClick = (e) => {
     e.preventDefault();
-    updateNote(id,note)
+    updateNote(id,note,localStorage.getItem('token'))
     document.getElementById('modalclose').click()
     props.promptAlert("Note updated","success")
   }
@@ -69,7 +76,7 @@ function Notes(props) {
           {notes.length === 0 && "No notes to display"}
         </div>
         {notes.map((note) => {
-          return <NoteItem note={note} modifyNote={modifyNote} key={note._id}  />
+          return <NoteItem note={note} modifyNote={modifyNote} key={note._id} promptAlert={props.promptAlert}  />
         })}
       </div>
     </>

@@ -44,7 +44,7 @@ const Login = (props) => {
                                 </div>
                                 <div className="login__field">
                                     <i className="login__icon fas fa-lock"></i>
-                                    <input type="password" className="login__input" value={creds.password} name='password' onChange={handleOnChange} placeholder="Password" />
+                                    <input type="password" className="login__input" value={creds.password} name='password' onChange={handleOnChange} autoComplete="on" placeholder="Password" />
                                 </div>
                                 <button className="button login__submit" >
                                     <span className="button__text">Log In Now</span>

@@ -7,7 +7,12 @@ function AddNote(props) {
   const [note, setNote] = useState({ title: "", description: "", tag: "" })
   const handleClick = (e) => {
     e.preventDefault();
-    addNote(note)
+    if(localStorage.getItem('token')){
+      addNote(note,localStorage.getItem('token'))
+    }
+    else{
+      console.log("note cannot be added!")
+    }
     setNote({ title: "", description: "", tag: "" })
     props.promptAlert("Note added", "success")
   }
