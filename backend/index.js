@@ -1,6 +1,7 @@
 const connectToMongo = require("./db");
 const authentication = require('./routes/auth.js')
 const exportnotes = require('./routes/notes.js')
+const path = require('path')
 
 connectToMongo();
 const express = require('express')
@@ -11,10 +12,21 @@ app.use(cors())
  
 const port = process.env.Port || 5000
 
+if (process.env.NODE_ENV === "production"){
+  const x = __dirname.replace('\\backend','')
+  // console.log(path.join(x,'/build'))
+  app.use(express.static(path.join(x,'/build')))
+  app.get('*', (req,res) =>{
+    res.sendFile(path.join(path.join(x,'build','index.html')))
+  })
+
+}else{
+  app.get('/', (req, res) => {
+    res.send('Hello World!')
+  })  
+}
 app.use(express.json({extended:false})) //should be placed before the routes to parse the body
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+
 
 app.use("/api/auth",authentication)
 app.use("/api/notes",exportnotes)

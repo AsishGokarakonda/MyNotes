@@ -22,7 +22,7 @@ const Signup = (props) => {
       console.log(response);
       props.promptAlert("Signed up successfully", "success")
       localStorage.setItem("token", response.data.token)
-      navigate("/");
+      navigate("/login");
     })
       .catch(function (error) {
         console.log(error)
