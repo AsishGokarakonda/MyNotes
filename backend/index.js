@@ -11,6 +11,10 @@ var app = express()
 app.use(cors())
  
 const port = process.env.Port || 5000
+app.use(express.json({extended:false})) //should be placed before the routes to parse the body
+
+app.use("/api/auth",authentication)
+app.use("/api/notes",exportnotes)
 
 if (process.env.NODE_ENV === "production"){
   const x = __dirname.replace('\\backend','')
@@ -25,11 +29,9 @@ if (process.env.NODE_ENV === "production"){
     res.send('Hello World!')
   })  
 }
-app.use(express.json({extended:false})) //should be placed before the routes to parse the body
 
 
-app.use("/api/auth",authentication)
-app.use("/api/notes",exportnotes)
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

@@ -9,7 +9,7 @@ const Signup = (props) => {
 
   const handleOnChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
-    console.log(credentials)
+    // console.log(credentials)
   }
   const handleOnSubmit = async (e) => {
     e.preventDefault()
@@ -19,9 +19,9 @@ const Signup = (props) => {
         'Accept': 'application/json'
       }
     }).then(function (response) {
-      console.log(response);
+      // console.log(response);
       props.promptAlert("Signed up successfully", "success")
-      localStorage.setItem("token", response.data.token)
+      // localStorage.setItem("token", response.data.token)
       navigate("/login");
     })
       .catch(function (error) {

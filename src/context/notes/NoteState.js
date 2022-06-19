@@ -9,11 +9,13 @@ const NoteState = (props) => {
   const [notes, setNotes] = useState(notesIntial)
 
   const getNotes = async (authtoken) => {
+    // console.log("HI");
+    // console.log(authtoken);
     const response = await fetch(`${host}/api/notes/getnotes`, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': authtoken,
+        'Authorization': authtoken,
       },
     });
     const newnotes = await response.json()
@@ -26,7 +28,7 @@ const NoteState = (props) => {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'auth-token': authtoken
+        'Authorization': authtoken
       }
     })
   }
@@ -35,7 +37,7 @@ const NoteState = (props) => {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'auth-token': authtoken
+        'Authorization': authtoken
       }
     })
   }
@@ -44,7 +46,7 @@ const NoteState = (props) => {
       method: 'PUT', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': authtoken
+        'Authorization': authtoken
       },
       body: JSON.stringify(note)
     });

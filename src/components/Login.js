@@ -10,7 +10,6 @@ const Login = (props) => {
     const navigate = useNavigate();
     const handleOnChange = (e) => {
         setCreds({ ...creds, [e.target.name]: e.target.value })
-        console.log(creds)
     }
     const handleOnSubmit = async (e) => {
         e.preventDefault()
@@ -21,7 +20,6 @@ const Login = (props) => {
             }
         }).then(function (response) {
             props.promptAlert("Logged in successfully", "success")
-            console.log(response.data.token);
             localStorage.setItem("token", response.data.token)
             navigate("/");
         })

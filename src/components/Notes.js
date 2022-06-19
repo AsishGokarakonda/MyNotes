@@ -11,8 +11,8 @@ function Notes(props) {
   const [id, setId] = useState("")
   const navigate = useNavigate()
   useEffect(() => {
+    // console.log(localStorage.getItem("token"))
     if(localStorage.getItem("token")){
-      // console.log(localStorage.getItem("token"))
       getNotes(localStorage.getItem("token"))
     }
     else{
