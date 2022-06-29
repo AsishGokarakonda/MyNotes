@@ -10,7 +10,8 @@ var app = express()
  
 app.use(cors())
  
-const port = process.env.Port || 5000
+// const port = process.env.Port || 5000
+app.set('port', (process.env.PORT || 5000))
 app.use(express.json({extended:false})) //should be placed before the routes to parse the body
 
 app.use("/api/auth",authentication)
